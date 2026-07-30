@@ -39,6 +39,11 @@ Three things, and the last two are the ones people forget.
 happened by the time a PDF exists, because a PDF addresses glyphs by id, not by
 character. They were 31% of this file and never read again.
 
+> One trap worth stating plainly: this only holds if shaping happened *before*
+> subsetting. Some PDF writers shape from the font you hand them, in which case
+> dropping `GSUB` means Arabic stops joining and the glyph ids no longer match
+> what you subsetted for. Pass `drop_layout: false` for those.
+
 **Unreachable subroutines.** CFF glyphs share outline fragments through
 subroutines, and a glyph that is no longer drawn stops needing them. Another
 13 KB here. Finding them means walking Type 2 charstring bytecode, including the
